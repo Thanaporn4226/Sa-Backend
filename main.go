@@ -187,16 +187,10 @@ func main() {
 	}
 
 	//all user login can use
-	api := r.Group("")
-	{
-		protected := api.Use(middlewares.Authorized())
-		{
-			protected.GET("/employee/:id", controller.GetEmployee)
-		}
-	}
 
 	//For signin (Auth Route)
 	r.POST("/signin", controller.Signin)
+	r.GET("/employee/:id", controller.GetEmployeeByLoginID)
 
 	//for check token
 	r.GET("/valid", controller.Validation)
