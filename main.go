@@ -121,11 +121,11 @@ func main() {
 	}
 
 	//pharmacist (roleName pharmacist)
-	pharmacistApi := r.Group("/phamacist")
+	pharmacistApi := r.Group("/pharmacist")
 	{
 		protected := pharmacistApi.Use(middlewares.AuthorizedPharmacist())
 		{
-			//เพชร พี่แบม และพี่แบม เพิ่ม API ตรงส่วนนี้ ในกรณีเรียกใช้ ให้เรียกใช้จาก /phamacist/(...Route)
+			//เพชร พี่แบม และพี่แบม เพิ่ม API ตรงส่วนนี้ ในกรณีเรียกใช้ ให้เรียกใช้จาก /pharmacist/(...Route)
 
 			//------------------------------ Part Petch ------------------------------
 			protected.GET("/employee/:id", controller.GetEmployee)
@@ -159,16 +159,29 @@ func main() {
 			protected.PATCH("/paymedicines", controller.UpdatePayMedicine)
 			protected.DELETE("/paymedicines/:id", controller.DeletePayMedicine)
 
+			//medicine
+			protected.GET("/medicines", controller.ListMedicine)
+			protected.GET("/medicine/:id", controller.GetMedicine)
+			protected.POST("/medicine", controller.CreateMedicine)
+			protected.PATCH("/medicine", controller.UpdateMedicine)
+			protected.DELETE("/medicine/:id", controller.DeleteMedicine)
+
 		}
 	}
 
 	//payment (roleName payment)
 	paymentApi := r.Group("/payment")
 	{
-		protected := paymentApi.Use(middlewares.AuthorizedPharmacist())
+		protected := paymentApi.Use(middlewares.AuthorizedPayment())
 		{
 			//พี่ก็อต เพิ่ม API ตรงส่วนนี้ ในกรณีเรียกใช้ ให้เรียกใช้จาก /payment/(...Route)
+			protected.GET("/employees", controller.ListEmployee)
 			protected.GET("/employee/:id", controller.GetEmployee)
+
+			protected.GET("/receipts", controller.ListReceipts)
+			protected.GET("/receipts/:id", controller.GetReceipts)
+			protected.POST("/receipts", controller.CreateReceipts)
+			protected.DELETE("/receipts/:id", controller.DeleteReceipts)
 
 		}
 	}

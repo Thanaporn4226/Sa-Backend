@@ -525,4 +525,25 @@ func SetupDatabase() {
 	}
 	db.Model(&Receipt{}).Create(&receipt1)
 
+	//------------------------------ Order --------------------------
+	// Company
+	comp1 := MedicineCompany{
+		Company_Name: "บริษัท หมอมี จำกัด",
+		Location:     "111 ถนนมหาวิทยาลัย ตำบลสุรนารี อำเภอเมือง จังหวัดนครราชสีมา 30000",
+	}
+	db.Model(&MedicineCompany{}).Create(&comp1)
+	comp2 := MedicineCompany{
+		Company_Name: "บริษัท หมอชิด จำกัด",
+		Location:     "222 ถนนมิตรภาพ ตำบลมิตรภาพ อำเภอเมือง จังหวัดนครราชสีมา 30123",
+	}
+	db.Model(&MedicineCompany{}).Create(&comp2)
+	// Order
+	order := MedicineOrder{
+		OrderAmount:     10,
+		OrderTime:       time.Now(),
+		Employee:        inten2emp,
+		Medicine:        med2,
+		MedicineCompany: comp1,
+	}
+	db.Model(&MedicineOrder{}).Create(&order)
 }

@@ -16,7 +16,6 @@ type MedicineCompany struct {
 
 type MedicineOrder struct {
 	gorm.Model
-	OrderID     uint
 	OrderAmount uint
 	OrderTime   time.Time
 	EmployeeID  *uint
