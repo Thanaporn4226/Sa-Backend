@@ -152,6 +152,27 @@ func main() {
 			protected.PATCH("/medicinelabels", controller.UpdateMedicineLabel)
 			protected.DELETE("/medicinelabels/:id", controller.DeleteMedicineLabel)
 
+			//MedicineLabel
+			protected.GET("/medicine_labels", controller.ListMedicineLabel)
+			protected.GET("/medicine_labels/:id", controller.GetMedicineLabel)
+			protected.POST("/medicine_labels", controller.CreateMedicineLabel)
+			protected.PATCH("/medicine_labels", controller.UpdateMedicineLabel)
+			protected.DELETE("/medicine_labels/:id", controller.DeleteMedicineLabel)
+
+			//MedicineUse
+			protected.GET("/medicine_uses", controller.ListMedicineUse)
+			protected.GET("/medicine_uses/:id", controller.GetMedicineUse)
+			protected.POST("/medicine_uses", controller.CreateMedicineUse)
+			protected.PATCH("/medicine_uses", controller.UpdateMedicineUse)
+			protected.DELETE("/medicine_uses/:id", controller.DeleteMedicineUse)
+
+			//Warning
+			protected.GET("/warnings", controller.ListWarning)
+			protected.GET("/warnings/:id", controller.GetWarning)
+			protected.POST("/warnings", controller.CreateWarning)
+			protected.PATCH("/warnings", controller.UpdateWarning)
+			protected.DELETE("/warnings/:id", controller.DeleteWarning)
+
 			//pay Medicines
 			protected.GET("/paymedicines", controller.ListPayMedicine)
 			protected.GET("/paymedicines/:id", controller.GetPayMedicine)

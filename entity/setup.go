@@ -358,9 +358,9 @@ func SetupDatabase() {
 
 	// //--------------------------------------------------- Medicine Label part -------------------------------------
 
-	//MedicineUse Data
+	//MedicineUse Data	------------------------------------------------------------------------------------------------------
 	mu1 := MedicineUse{
-		How_To_Use: "ครั้งละ 1 เม็ด ทุก 4-6 ชั่วโง เวลาปวดหรือมีไข้",
+		How_To_Use: "ครั้งละ 1 เม็ด ทุก 4-6 ชั่วโมง เวลาปวดหรือมีไข้",
 	}
 	db.Model(&MedicineUse{}).Create(&mu1)
 
@@ -374,7 +374,37 @@ func SetupDatabase() {
 	}
 	db.Model(&MedicineUse{}).Create(&mu3)
 
-	// Warning Data
+	mu4 := MedicineUse{
+		How_To_Use: "ครั้งละ 1 เม็ด ก่อนนอน",
+	}
+	db.Model(&MedicineUse{}).Create(&mu4)
+
+	mu5 := MedicineUse{
+		How_To_Use: "ครั้งละ 1 เม็ด หลังอาหาร เช้า-เย็น",
+	}
+	db.Model(&MedicineUse{}).Create(&mu5)
+
+	mu6 := MedicineUse{
+		How_To_Use: "ครั้งละ 1 เม็ด ก่อนอาหาร เช้า-เย็น",
+	}
+	db.Model(&MedicineUse{}).Create(&mu6)
+
+	mu7 := MedicineUse{
+		How_To_Use: "ครั้งละ 2 เม็ด หลังอาหาร เช้า-เย็น",
+	}
+	db.Model(&MedicineUse{}).Create(&mu7)
+
+	mu8 := MedicineUse{
+		How_To_Use: "ครั้งละ 2 เม็ด ก่อนอาหาร เช้า-เย็น",
+	}
+	db.Model(&MedicineUse{}).Create(&mu8)
+
+	mu9 := MedicineUse{
+		How_To_Use: "จิบเวลามีอาการ",
+	}
+	db.Model(&MedicineUse{}).Create(&mu9)
+
+	// Warning Data		------------------------------------------------------------------------------------------------------
 	w1 := Warning{
 		Medicine_Warning: "ห้ามใช้เกิน 8 เม็ดต่อวัน",
 	}
@@ -390,7 +420,37 @@ func SetupDatabase() {
 	}
 	db.Model(&Warning{}).Create(&w3)
 
-	//MedicineLabel Data
+	w4 := Warning{
+		Medicine_Warning: "ควรทานยาหลังอาหารทันที เป็นยามีฤิทธิ์ระคายเคืองกระเพาะอาหาร",
+	}
+	db.Model(&Warning{}).Create(&w4)
+
+	w5 := Warning{
+		Medicine_Warning: "ควรรับประทานยานี้หลังอาหาร 1-2 ชั่วโมง",
+	}
+	db.Model(&Warning{}).Create(&w5)
+
+	w6 := Warning{
+		Medicine_Warning: "รับประทานยานี้แล้วควรดื่มน้ำมาก ๆ",
+	}
+	db.Model(&Warning{}).Create(&w6)
+
+	w7 := Warning{
+		Medicine_Warning: "ควรรับประทานยานี้ติดต่อกันทุกวันจนยาหมด",
+	}
+	db.Model(&Warning{}).Create(&w7)
+
+	w8 := Warning{
+		Medicine_Warning: "เคี้ยวยาให้ละเอียดก่อนกลืน",
+	}
+	db.Model(&Warning{}).Create(&w8)
+
+	w9 := Warning{
+		Medicine_Warning: "ห้ามใช้ในผู้ที่เคยแพ้ยานี้",
+	}
+	db.Model(&Warning{}).Create(&w9)
+
+	//MedicineLabel Data	------------------------------------------------------------------------------------------------------
 	ml1 := MedicineLabel{
 		RecordingDate: time.Now(),
 		Warning:       w1,
@@ -414,6 +474,54 @@ func SetupDatabase() {
 		Employee:      phar2emp,
 	}
 	db.Model(&MedicineLabel{}).Create(&ml3)
+
+	ml4 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w4,
+		MedicineUse:   mu4,
+		Employee:      phar2emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml4)
+
+	ml5 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w5,
+		MedicineUse:   mu5,
+		Employee:      phar2emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml5)
+
+	ml6 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w6,
+		MedicineUse:   mu6,
+		Employee:      phar1emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml6)
+
+	ml7 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w7,
+		MedicineUse:   mu7,
+		Employee:      phar1emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml7)
+
+	ml8 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w8,
+		MedicineUse:   mu8,
+		Employee:      phar2emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml8)
+
+	ml9 := MedicineLabel{
+		RecordingDate: time.Now(),
+		Warning:       w9,
+		MedicineUse:   mu9,
+		Employee:      phar1emp,
+	}
+	db.Model(&MedicineLabel{}).Create(&ml9)
 
 	//------------------------------------------ Prescription ---------------------------
 

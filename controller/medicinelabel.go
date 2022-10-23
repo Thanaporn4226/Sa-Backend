@@ -26,14 +26,18 @@ func CreateMedicineUse(c *gin.Context) {
 
 // GET /MedicineUse/:id
 func GetMedicineUse(c *gin.Context) {
-	var MedicineLabel entity.MedicineLabel
+	var medicineUse entity.MedicineUse
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&MedicineLabel); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "medicine_use not found"})
+	if err := entity.DB().Raw("SELECT * FROM medicine_uses WHERE id = ?", id).Scan(&medicineUse).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	// if tx := entity.DB().Where("id = ?", id).First(&medicineLabel); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "medicine_use not found"})
+	// 	return
+	// }
 
-	c.JSON(http.StatusOK, gin.H{"data": MedicineLabel})
+	c.JSON(http.StatusOK, gin.H{"data": medicineUse})
 }
 
 // GET /MedicineUse
@@ -81,7 +85,7 @@ func UpdateMedicineUse(c *gin.Context) {
 
 // ----------------------------------------- warning -----------------------------------
 
-// POST /Warning
+// POST /warning
 func CreateWarning(c *gin.Context) {
 	var Warning entity.Warning
 	if err := c.ShouldBindJSON(&Warning); err != nil {
@@ -96,30 +100,37 @@ func CreateWarning(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"data": Warning})
 }
 
-// GET /Warning/:id
+// GET /warning/:id
 func GetWarning(c *gin.Context) {
-	var Warning entity.Warning
+	var warning entity.Warning
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&Warning); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "warning not found"})
+	if err := entity.DB().Raw("SELECT * FROM warnings WHERE id = ?", id).Scan(&warning).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": Warning})
+	// if tx := entity.DB().Where("id = ?", id).First(&warning); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "warning not found"})
+	// 	return
+	// }
+	c.JSON(http.StatusOK, gin.H{"data": warning})
 }
 
 // GET /Warning
 func ListWarning(c *gin.Context) {
-	var Warning []entity.Warning
-	if err := entity.DB().Raw("SELECT * FROM warnings").Scan(&Warning).Error; err != nil {
+	var warning []entity.Warning
+	if err := entity.DB().Raw("SELECT * FROM warnings").Scan(&warning).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	// if err := entity.DB().Raw("SELECT * FROM warnings").Scan(&warning).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
-	c.JSON(http.StatusOK, gin.H{"data": Warning})
+	c.JSON(http.StatusOK, gin.H{"data": warning})
 }
 
-// DELETE /Warning/:id
+// DELETE /warning/:id
 func DeleteWarning(c *gin.Context) {
 	id := c.Param("id")
 	if tx := entity.DB().Exec("DELETE FROM warning WHERE id = ?", id); tx.RowsAffected == 0 {
@@ -150,6 +161,8 @@ func UpdateWarning(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": Warning})
 }
+
+//--------------------------------------------- Medicine Label---------------------------------------------------------------------
 
 // POST /MedicineLabel
 func CreateMedicineLabel(c *gin.Context) {
@@ -200,31 +213,35 @@ func CreateMedicineLabel(c *gin.Context) {
 
 // GET /MedicineLabel/:id
 func GetMedicineLabel(c *gin.Context) {
-	var MedicineLabel entity.MedicineLabel
+	var medicineLabel entity.MedicineLabel
 	id := c.Param("id")
-	if tx := entity.DB().Where("id = ?", id).First(&MedicineLabel); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "medicine_label not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"data": MedicineLabel})
-}
-
-// GET /MedicineLabel
-func ListMedicineLabel(c *gin.Context) {
-	var MedicineLabel []entity.MedicineLabel
-	if err := entity.DB().Preload("MedicineUse").Preload("Warning").Preload("Employee").Raw("SELECT * FROM medicine_labels").Find(&MedicineLabel).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM medicine_labels WHERE id = ?", id).Preload("MedicineUse").Preload("Warning").Find(&medicineLabel).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": MedicineLabel})
+	c.JSON(http.StatusOK, gin.H{"data": medicineLabel})
+}
+
+// GET /MedicineLabel
+func ListMedicineLabel(c *gin.Context) {
+	var medicineLabel []entity.MedicineLabel
+	if err := entity.DB().Raw("SELECT * FROM medicine_labels").Preload("Employee").Preload("MedicineUse").Preload("Warning").Find(&medicineLabel).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	// if err := entity.DB().Preload("MedicineUse").Preload("Warning").Preload("Employee").Raw("SELECT * FROM medicine_labels").Find(&MedicineLabel).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+
+	c.JSON(http.StatusOK, gin.H{"data": medicineLabel})
 }
 
 // DELETE /MedicineLabel/:id
 func DeleteMedicineLabel(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM medicine_label WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM medicine_labels WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "medicine_label not found"})
 		return
 	}
