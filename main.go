@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/Pet002/Project-sa-65/controller"
-	"github.com/Pet002/Project-sa-65/entity"
-	"github.com/Pet002/Project-sa-65/middlewares"
+	"github.com/Thanaporn4226/Project-sa-65/controller"
+	"github.com/Thanaporn4226/Project-sa-65/entity"
+	"github.com/Thanaporn4226/Project-sa-65/middlewares"
 	"github.com/gin-gonic/gin"
 )
 

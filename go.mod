@@ -1,4 +1,4 @@
-module github.com/Pet002/Project-sa-65
+module github.com/Thanaporn4226/Project-sa-65
 
 go 1.19
 
@@ -6,8 +6,8 @@ require (
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
 	github.com/gin-gonic/gin v1.8.1
 	github.com/golang-jwt/jwt/v4 v4.4.2
-	golang.org/x/crypto v0.0.0-20221010152910-d6f0a8c073c2
-	gorm.io/driver/sqlite v1.4.2
+	golang.org/x/crypto v0.1.0
+	gorm.io/driver/sqlite v1.4.3
 	gorm.io/gorm v1.24.0
 )
 
@@ -27,9 +27,9 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
-	golang.org/x/net v0.0.0-20221004154528-8021a29435af // indirect
-	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/net v0.1.0 // indirect
+	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
